@@ -1,10 +1,10 @@
 from django.shortcuts import render
 
 def index(request):  # This must be named 'home' to match urls.py
-    return render(request, 'Core/index.html')
+    return render(request, 'core/index.html')
 
 def login_view(request):  # Must be named 'login_view' to match urls.py
-    return render(request, 'Core/login.html')
+    return render(request, 'core/login.html')
 
 def register(request):
-    return render(request, 'Core/register.html')
+    return render(request, 'core/register.html')
