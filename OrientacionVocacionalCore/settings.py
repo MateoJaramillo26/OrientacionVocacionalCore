@@ -71,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'OrientacionVocacionalCore.wsgi.app'
+WSGI_APPLICATION = 'OrientacionVocacionalCore.wsgi.application'
 
 
 # Database
