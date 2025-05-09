@@ -7,3 +7,4 @@ django-ckeditor
 pylint
 pylint-django
 pylint-celery
+whitenoise
