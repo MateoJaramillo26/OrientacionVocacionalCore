@@ -13,6 +13,7 @@ class Universidad(models.Model):
     pais = models.ForeignKey('Pais', on_delete=models.CASCADE)
     telefono = models.CharField(max_length=15, verbose_name="Teléfono")
     sitio_web = models.URLField(verbose_name="Sitio Web")
+    ranking = models.IntegerField(verbose_name="Ranking")
 
     def __str__(self):
         return self.nombre
