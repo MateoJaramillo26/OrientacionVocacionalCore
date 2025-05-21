@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core.exceptions import ValidationError
+from datetime import date
 
 class User(AbstractUser):
     ROLES = (
@@ -53,10 +54,15 @@ class User(AbstractUser):
             if not self.telefono.isdigit():
                 raise ValidationError({'telefono': 'El teléfono debe contener solo números.'})
             # Asegurar que el teléfono tenga exactamente 10 dígitos
-            # Esta validación es redundante si max_length=10 y el campo es obligatorio,
-            # pero es buena práctica tenerla para claridad y si el campo fuera opcional.
             if len(self.telefono) != 10:
                 raise ValidationError({'telefono': 'El teléfono debe tener exactamente 10 dígitos.'})
+
+        # Validar mayoría de edad
+        if self.fecha_nacimiento:
+            hoy = date.today()
+            edad = hoy.year - self.fecha_nacimiento.year - ((hoy.month, hoy.day) < (self.fecha_nacimiento.month, self.fecha_nacimiento.day))
+            if edad < 18:
+                raise ValidationError({'fecha_nacimiento': 'El usuario debe ser mayor de edad (18 años o más).'})
 
     def validar_cedula_ecuatoriana(self, cedula):
         # Verificar longitud

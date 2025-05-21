@@ -58,6 +58,13 @@
                                     <div class="text-danger">{{ form.telefono.errors }}</div>
                                 {% endif %}
                             </div>
+                            <div class="mb-3">
+                                <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
+                                <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ form.fecha_nacimiento.value|default_if_none:'' }}" required>
+                                {% if form.fecha_nacimiento.errors %}
+                                    <div class="text-danger">{{ form.fecha_nacimiento.errors }}</div>
+                                {% endif %}
+                            </div>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="password1" class="form-label">Contraseña</label>
