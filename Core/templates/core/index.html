@@ -15,9 +15,9 @@
                 <a class="navbar-brand" href="/">Sistema de Orientación Vocacional</a>
                 <div class="navbar-nav ml-auto">
                     {% if request.user.is_authenticated %}
-                        <h4 class="text-white">{{request.user.username | upper}} Bienvenido</h4>
-                        <a class="nav-link" href="{% url 'index' %}">Cerrar Sesión</a>
                         <a class="nav-link" href="{% url 'calificaciones' %}">Calificaciones</a>
+                        <a class="nav-link" href="{% url 'index' %}">Cerrar Sesión</a>
+                        <h4 class="text-white ms-3 align-self-center">{{request.user.username | upper}} Bienvenido</h4>
                         {% if request.user.role == 'estudiante'%}
 
                         {% elif request.user.role == 'profesor' %}
@@ -41,7 +41,16 @@
                 <div class="col-md-8 text-center">
                     <h1>Bienvenido al Sistema de Orientación Vocacional</h1>
                     <p class="lead">Descubre tu camino académico</p>
-                    <button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='{% url 'login' %}'">Comenzar</button>
+                    {% if request.user.is_authenticated%}
+                        {% if request.user.role == 'estudiante' %}
+                            <button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='{% url 'calificaciones' %}'">Ver Calificaciones</button>
+                        {% elif request.user.role == 'profesor' or '-' %}
+                            <button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='{% url 'asignarNota' %}'">Asignar Notas</button>
+                    
+                        {% endif %}
+                    {% else %}
+                        <button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='{% url 'login' %}'">Comenzar</button>
+                    {% endif %}
                 </div>
             </div>
         </div>

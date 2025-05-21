@@ -13,3 +13,7 @@ def register(request):
 @login_required
 def calificaciones(request):
     return render(request, 'core/calificaciones.html')
+
+@login_required
+def asignarNota(request):
+    return render(request, 'core/asignarNota.html')
