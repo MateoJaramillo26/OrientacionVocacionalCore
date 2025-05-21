@@ -46,6 +46,7 @@
                     {% if request.user.is_authenticated%}
                         {% if request.user.role == 'estudiante' %}
                             <button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='{% url 'calificaciones' %}'">Ver Calificaciones</button>
+                            <button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='{% url 'inscribirClases' %}'">Inscribete en Clases</button>
                         {% elif request.user.role == 'profesor' %}
                             <button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='{% url 'asignarNota' %}'">Asignar Notas</button>
                         {% elif request.user.is_superuser %}

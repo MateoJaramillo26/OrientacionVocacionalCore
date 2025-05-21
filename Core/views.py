@@ -44,4 +44,5 @@ def exit(request):
     logout (request)
     return redirect('index')
 
-
+def inscribirClases(request):
+    return render(request, 'core/inscribirClases.html')
