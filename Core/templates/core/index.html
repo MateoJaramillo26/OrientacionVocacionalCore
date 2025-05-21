@@ -15,14 +15,16 @@
                 <a class="navbar-brand" href="/">Sistema de Orientación Vocacional</a>
                 <div class="navbar-nav ml-auto">
                     {% if request.user.is_authenticated %}
-                        <a class="nav-link" href="{% url 'calificaciones' %}">Calificaciones</a>
-                        <a class="nav-link" href="{% url 'exit' %}">Cerrar Sesión</a>
                         
                         {% if request.user.role == 'estudiante'%}
-
-                        {% elif request.user.role == 'profesor' or '-' %}
+                            <a class="nav-link" href="{% url 'calificaciones' %}">Calificaciones</a>
+                        {% elif request.user.role == 'profesor' %}
+                            <a class="nav-link" href="{% url 'asignarNota' %}">Asignar Nota</a>
+                        {% elif request.user.is_superuser %}
+                            <a class="nav-link" href="{% url 'calificaciones' %}">Calificaciones</a>
                             <a class="nav-link" href="{% url 'asignarNota' %}">Asignar Nota</a>
                         {% endif %}
+                        <a class="nav-link" href="{% url 'exit' %}">Cerrar Sesión</a>
                         <h4 class="text-white ms-3 align-self-center">{{request.user.username | upper}} Bienvenido</h4>
                     {% else %}
                         <a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
@@ -44,9 +46,11 @@
                     {% if request.user.is_authenticated%}
                         {% if request.user.role == 'estudiante' %}
                             <button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='{% url 'calificaciones' %}'">Ver Calificaciones</button>
-                        {% elif request.user.role == 'profesor' or '-' %}
+                        {% elif request.user.role == 'profesor' %}
                             <button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='{% url 'asignarNota' %}'">Asignar Notas</button>
-                    
+                        {% elif request.user.is_superuser %}
+                            <button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='{% url 'calificaciones' %}'">Ver Calificaciones</button>
+                            <button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='{% url 'asignarNota' %}'">Asignar Notas</button>
                         {% endif %}
                     {% else %}
                         <button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='{% url 'login' %}'">Comenzar</button>
