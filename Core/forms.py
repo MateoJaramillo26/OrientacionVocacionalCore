@@ -1,7 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-
+from django.forms import widgets
+from Academico.models import Calificacion
 from Usuarios.models import User
+
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
@@ -11,3 +13,14 @@ class CustomUserCreationForm(UserCreationForm):
             'fecha_nacimiento': forms.DateInput(attrs = {'type': 'date'}),
         }
         
+        
+class CalificacionesForm(forms.ModelForm):
+    class Meta:
+        model = Calificacion
+        fields = ['estudiante', 'clase', 'nota', 'comentario']
+        widgets = {
+            'comentario' : forms.Textarea(attrs = {'rows': 4}),
+        }
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.fields['estudiante'].queryset = User.objects.filter(role='estudiante')

@@ -1,5 +1,42 @@
 {% extends 'core/index.html' %}
 
 {% block content %} 
-
+<div class="asignarNota">
+    <h1>Asignar Nota</h1>
+    <form method="post">
+        {% csrf_token %}
+        
+        <!-- Campo para seleccionar estudiante -->
+        <label for="estudiante">Estudiante:</label>
+        <select name="estudiante" id="estudiante" required>
+            <option value="" disabled selected>Seleccione un estudiante</option>
+            {% for grupo, estudiantes in estudiantes_por_grupo.items %}
+                <optgroup label="Grupo: {{ grupo }}">
+                    {% for estudiante in estudiantes %}
+                        <option value="{{ estudiante.id }}">{{ estudiante.first_name }} {{ estudiante.last_name }}</option>
+                    {% endfor %}
+                </optgroup>
+            {% endfor %}
+        </select>
+        
+        <!-- Campo para seleccionar clase -->
+        <label for="clase">Clase:</label>
+        <select name="clase" id="clase" required>
+            <option value="" disabled selected>Seleccione una clase</option>
+            {% for clase in clases %}
+                <option value="{{ clase.id }}">{{ clase.nombre }}</option>
+            {% endfor %}
+        </select>
+        
+        <!-- Campo para ingresar la nota -->
+        <label for="nota">Nota:</label>
+        <input type="number" name="nota" id="nota" min="0" max="100" step="0.1" required>
+        
+        <!-- Campo para el comentario -->
+        <label for="comentario">Comentario:</label>
+        <textarea name="comentario" id="comentario" rows="4" placeholder="Escribe un comentario"></textarea>
+        
+        <button type="submit">Asignar Nota</button>
+    </form>
+</div>
 {% endblock %}

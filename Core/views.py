@@ -1,9 +1,13 @@
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from django.contrib.auth import logout
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, CalificacionesForm
 from django.contrib.auth import authenticate, login
+from django.http import HttpResponseForbidden
+from django.contrib.auth.models import Group
+from Academico.models import Clase
 
 def index(request):  # This must be named 'home' to match urls.py
     return render(request, 'core/index.html')
@@ -46,3 +50,33 @@ def exit(request):
 
 def inscribirClases(request):
     return render(request, 'core/inscribirClases.html')
+
+@login_required
+def asignarNota(request):
+    if not (request.user.is_profesor() or request.user.is_superuser):
+        return HttpResponseForbidden("No tienes los permisos para asignar notas.")
+    
+    grupos = Group.objects.all()
+    estudiantes = {
+        grupo.name: grupo.custom_user_set.filter(role='estudiante') for grupo in grupos
+    }
+    
+    clases = Clase.objects.all()
+    
+    if request.method == 'POST':
+        form = CalificacionesForm(request.POST)
+        
+        if form.is_valid():
+            calificacion = form.save(commit=False)
+            calificacion.superuser = request.user
+            calificacion.profesor = request.user
+            calificacion.save()
+            return redirect('calificaciones')
+    else:
+        form = CalificacionesForm()
+
+    return render(request, 'core/asignarNota.html', {
+        'form': form,
+        'estudiantes': estudiantes,
+        'clases': clases,
+    })
