@@ -14,7 +14,6 @@ class User(AbstractUser):
 
     # Campos opcionales para perfiles específicos
     especialidad = models.CharField(max_length=100, null=True, blank=True, verbose_name="Especialidad")
-    departamento = models.CharField(max_length=100, null=True, blank=True, verbose_name="Departamento")
     fecha_nacimiento = models.DateField(null=True, blank=True, verbose_name="Fecha de Nacimiento")
     direccion = models.TextField(null=True, blank=True, verbose_name="Dirección")
 

@@ -10,14 +10,14 @@ class UserAdmin(BaseUserAdmin):
     # This organizes fields in the admin interface when editing a user
     fieldsets = BaseUserAdmin.fieldsets + (
         ('Información Personal', {'fields': ('cedula', 'telefono', 'fecha_nacimiento', 'direccion')}),
-        ('Rol y Académico', {'fields': ('role', 'especialidad', 'departamento')}),
+        ('Rol y Académico', {'fields': ('role', 'especialidad')}),
     )
     
     # Add custom fields to the add_fieldsets for the user creation form
     add_fieldsets = BaseUserAdmin.add_fieldsets + (
         (None, {'fields': ('email', 'first_name', 'last_name')}), # Standard fields
         ('Información Personal', {'fields': ('cedula', 'telefono', 'fecha_nacimiento', 'direccion')}),
-        ('Rol y Académico', {'fields': ('role', 'especialidad', 'departamento')}),
+        ('Rol y Académico', {'fields': ('role', 'especialidad')}),
     )
 
     # Add custom fields to search functionality

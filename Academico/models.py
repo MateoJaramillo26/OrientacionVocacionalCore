@@ -1,3 +1,4 @@
+import decimal
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator
@@ -11,9 +12,10 @@ class Universidad(models.Model):
     direccion = models.CharField(max_length=200, verbose_name="Dirección")
     ciudad = models.ForeignKey('Ciudad', on_delete=models.CASCADE)
     pais = models.ForeignKey('Pais', on_delete=models.CASCADE)
+    facultad = models.ManyToManyField('Facultad')
     telefono = models.CharField(max_length=15, verbose_name="Teléfono")
     sitio_web = models.URLField(verbose_name="Sitio Web")
-    ranking = models.IntegerField(verbose_name="Ranking", default=0)
+    empleabilidad = models.FloatField(verbose_name="Valor de Empleabilidad", default=0)
 
     def __str__(self):
         return self.nombre
@@ -28,13 +30,25 @@ class Clase(models.Model):
     codigo = models.CharField(max_length=20, verbose_name="Código")
     creditos = models.IntegerField(verbose_name="Créditos")
     profesor = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'role': 'profesor'})
-
+    
     def __str__(self):
         return f"{self.codigo} - {self.nombre}"
 
     class Meta:
         verbose_name = "Clase"
         verbose_name_plural = "Clases"
+
+class Facultad(models.Model):
+    id_facultad = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=100, verbose_name="Nombre")
+    clases = models.ManyToManyField(Clase)
+  
+    def __str__(self):
+        return self.nombre
+    
+    class Meta:
+        verbose_name = "Facultad"
+        verbose_name_plural = "Facultades"
 
 class Calificacion(models.Model):
     id_calificacion = models.AutoField(primary_key=True)
