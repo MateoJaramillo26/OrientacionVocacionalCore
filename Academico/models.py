@@ -1,4 +1,5 @@
 import decimal
+from typing import override
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator
@@ -50,19 +51,30 @@ class Facultad(models.Model):
         verbose_name_plural = "Facultades"
 
 class Empleabilidad(models.Model):
-    materia = models.ForeignKey(Clase, on_delete=models.CASCADE)
     facultad = models.ForeignKey(Facultad, on_delete=models.CASCADE)
     universidad = models.ForeignKey(Universidad, on_delete=models.CASCADE)
     empleabilidad = models.FloatField(verbose_name="Valor de Empleabilidad", default=0, validators=[MaxValueValidator(100.0)])
 
+    def __str__(self):
+        return f"{self.empleabilidad} - {self.materia.nombre} - {self.facultad.nombre} - {self.universidad.nombre}"
+
+    class Meta:
+        verbose_name = "Empleabilidad"
+        verbose_name_plural = "Empleabilidad"
+    
 class InvestigacionYDescubrimiento(models.Model):
-    materia = models.ForeignKey(Clase, on_delete=models.CASCADE)
     facultad = models.ForeignKey(Facultad, on_delete=models.CASCADE)
     universidad = models.ForeignKey(Universidad, on_delete=models.CASCADE)
     citacionesPorEscrito = models.FloatField(verbose_name="Citas por Escrito", default=0, validators=[MaxValueValidator(100.0)])
     citacionesPorInvestigacion = models.FloatField(verbose_name="Citas por Investigación", default=0, validators=[MaxValueValidator(100.0)])
     reputacionAcademica = models.FloatField(verbose_name="Reputación Académica", default=0, validators=[MaxValueValidator(100.0)])
+    
+    def __str__(self):
+        return f"{self.citacionesPorEscrito} - {self.citacionesPorInvestigacion} - {self.reputacionAcademica} - {self.materia.nombre} - {self.facultad.nombre} - {self.universidad.nombre}"
 
+    class Meta:
+        verbose_name = "Investigación y Descubrimiento"
+        verbose_name_plural = "Investigación y Descubrimientos"
 
 class Calificacion(models.Model):
     id_calificacion = models.AutoField(primary_key=True)
