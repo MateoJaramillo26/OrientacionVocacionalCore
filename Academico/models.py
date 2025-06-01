@@ -56,7 +56,7 @@ class Empleabilidad(models.Model):
     empleabilidad = models.FloatField(verbose_name="Valor de Empleabilidad", default=0, validators=[MaxValueValidator(100.0)])
 
     def __str__(self):
-        return f"{self.empleabilidad} - {self.materia.nombre} - {self.facultad.nombre} - {self.universidad.nombre}"
+        return f"{self.empleabilidad} - {self.facultad.nombre} - {self.universidad.nombre}"
 
     class Meta:
         verbose_name = "Empleabilidad"
@@ -70,7 +70,7 @@ class InvestigacionYDescubrimiento(models.Model):
     reputacionAcademica = models.FloatField(verbose_name="Reputación Académica", default=0, validators=[MaxValueValidator(100.0)])
     
     def __str__(self):
-        return f"{self.citacionesPorEscrito} - {self.citacionesPorInvestigacion} - {self.reputacionAcademica} - {self.materia.nombre} - {self.facultad.nombre} - {self.universidad.nombre}"
+        return f"{self.citacionesPorEscrito} - {self.citacionesPorInvestigacion} - {self.reputacionAcademica} - {self.facultad.nombre} - {self.universidad.nombre}"
 
     class Meta:
         verbose_name = "Investigación y Descubrimiento"
