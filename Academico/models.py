@@ -15,7 +15,6 @@ class Universidad(models.Model):
     facultad = models.ManyToManyField('Facultad')
     telefono = models.CharField(max_length=15, verbose_name="Teléfono")
     sitio_web = models.URLField(verbose_name="Sitio Web")
-    empleabilidad = models.FloatField(verbose_name="Valor de Empleabilidad", default=0)
 
     def __str__(self):
         return self.nombre
@@ -49,6 +48,21 @@ class Facultad(models.Model):
     class Meta:
         verbose_name = "Facultad"
         verbose_name_plural = "Facultades"
+
+class Empleabilidad(models.Model):
+    materia = models.ForeignKey(Clase, on_delete=models.CASCADE)
+    facultad = models.ForeignKey(Facultad, on_delete=models.CASCADE)
+    universidad = models.ForeignKey(Universidad, on_delete=models.CASCADE)
+    empleabilidad = models.FloatField(verbose_name="Valor de Empleabilidad", default=0, validators=[MaxValueValidator(100.0)])
+
+class InvestigacionYDescubrimiento(models.Model):
+    materia = models.ForeignKey(Clase, on_delete=models.CASCADE)
+    facultad = models.ForeignKey(Facultad, on_delete=models.CASCADE)
+    universidad = models.ForeignKey(Universidad, on_delete=models.CASCADE)
+    citacionesPorEscrito = models.FloatField(verbose_name="Citas por Escrito", default=0, validators=[MaxValueValidator(100.0)])
+    citacionesPorInvestigacion = models.FloatField(verbose_name="Citas por Investigación", default=0, validators=[MaxValueValidator(100.0)])
+    reputacionAcademica = models.FloatField(verbose_name="Reputación Académica", default=0, validators=[MaxValueValidator(100.0)])
+
 
 class Calificacion(models.Model):
     id_calificacion = models.AutoField(primary_key=True)
