@@ -114,6 +114,3 @@ def exit(request):
     logout (request)
     return redirect('index')
 
-def recomendarCarrera(request):
-    return render(request, 'core/recomendarCarrera.html')
-
