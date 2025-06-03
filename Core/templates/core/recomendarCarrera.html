@@ -13,7 +13,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for facultad, promedio in promedio_por_facultad.items %}
+                    {% for facultad, promedio in promedioPorFacultad.items %}
                     <tr>
                         <td>{{ facultad.nombre }}</td>
                         <td>{{ promedio|floatformat:2 }}</td>
