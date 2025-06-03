@@ -16,8 +16,15 @@ def RecomendarCarrera(request):
             facultad_notas[facultad].append(cal.nota)
     promedio_por_facultad = {facultad: sum(notas)/len(notas) for facultad, notas in facultad_notas.items()}
 
+    # Encontrar la(s) mejor(es) nota(s)
+    if promedio_por_facultad:
+        max_nota = max(promedio_por_facultad.values())
+        mejores_facultades = [fac for fac, nota in promedio_por_facultad.items() if nota == max_nota]
+    else:
+        mejores_facultades = []
+
     ranking = []
-    for facultad in Facultad.objects.all():
+    for facultad in mejores_facultades:
         for uni in facultad.universidad_set.all():
             empleabilidad = Empleabilidad.objects.filter(facultad=facultad, universidad=uni).first()
             investigacion = InvestigacionYDescubrimiento.objects.filter(facultad=facultad, universidad=uni).first()
