@@ -9,6 +9,7 @@ Sistema de gestión académica desarrollado con Django que permite la administra
 - 🏛️ Gestión de universidades con ubicación geográfica
 - 📊 Sistema de calificaciones
 - 🔒 Control de acceso basado en roles
+- 🏛️ Recomendacion de Carreras y Universidades basado en notas
 ## 📋 Modelos del Sistema
 ### 👤 Usuarios
 - Estudiantes y Profesores con información personalizada
@@ -19,6 +20,9 @@ Sistema de gestión académica desarrollado con Django que permite la administra
 - Clases
 - Calificaciones
 - Gestión geográfica (Países y Ciudades)
+- Facultad
+- Empleabilidad
+- Investigacion
 ## 🔧 Requisitos Previos
 1. Python 3.x
 2. Pipenv (para gestión de entorno virtual)
